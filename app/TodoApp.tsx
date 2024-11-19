@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
@@ -7,20 +5,15 @@ import TodoList from "./components/TodoList";
 const TodoApp = () => {
   const [tasks, setTasks] = useState<{ text: string; completed: boolean }[]>([]);
   const [editingTask, setEditingTask] = useState<string | null>(null);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
-  // Function to add or update task
   const addTask = (task: string) => {
     if (editingTask) {
-      // Update existing task
-      const updatedTasks = tasks.map((t, i) =>
-        i === editingIndex ? { ...t, text: task } : t
+      const updatedTasks = tasks.map((t) =>
+        t.text === editingTask ? { ...t, text: task } : t
       );
       setTasks(updatedTasks);
-      setEditingTask(null);
-      setEditingIndex(null);
+      setEditingTask(null); // Clear editing mode after update
     } else {
-      // Add new task
       setTasks([...tasks, { text: task, completed: false }]);
     }
   };
@@ -37,20 +30,15 @@ const TodoApp = () => {
     );
   };
 
-  const startEditing = (index: number) => {
-    setEditingTask(tasks[index].text); // Set the task text in the input field
-    setEditingIndex(index); // Store the index of the task to be updated
-  };
-
   return (
     <div className="wrapper">
-      <h1 style={{textAlign:"center"}}><b>ToDo Application</b></h1>
+      <h1>ToDo Application</h1>
       <TodoForm addTask={addTask} editingTask={editingTask} />
       <TodoList
         tasks={tasks}
         deleteTask={deleteTask}
         toggleTaskCompletion={toggleTaskCompletion}
-        startEditing={startEditing} // Pass the startEditing function to TodoList
+        setEditingTask={setEditingTask} // Pass setEditingTask to TodoList
       />
     </div>
   );

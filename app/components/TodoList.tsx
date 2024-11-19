@@ -5,12 +5,14 @@ interface TodoListProps {
   tasks: { text: string; completed: boolean }[];
   deleteTask: (index: number) => void;
   toggleTaskCompletion: (index: number) => void;
+  startEditing: (index: number) => void; // Added startEditing function prop
 }
 
 const TodoList: React.FC<TodoListProps> = ({
   tasks,
   deleteTask,
   toggleTaskCompletion,
+  startEditing,
 }) => {
   return (
     <ul className="task-list">
@@ -22,27 +24,26 @@ const TodoList: React.FC<TodoListProps> = ({
           key={index}
           className={`task-item ${task.completed ? "completed" : ""}`}
         >
-          <div className="flex items-center">
-            {/* Removing the background box behind the checkbox */}
+          <div className="task-content">
             <input
               type="checkbox"
               checked={task.completed}
               onChange={() => toggleTaskCompletion(index)}
-              className="w-5 h-5 mr-4"
+              className="checkbox"
             />
             <span>{task.text}</span>
           </div>
-          <div className="icon-buttons">
+          <div className="action-buttons">
             <button
               onClick={() => deleteTask(index)}
-              className="delete"
+              className="delete-button"
               title="Delete Task"
             >
               <FaTrash />
             </button>
             <button
-              onClick={() => toggleTaskCompletion(index)}
-              className="edit"
+              onClick={() => startEditing(index)} // When clicked, start editing
+              className="edit-button"
               title="Edit Task"
             >
               <FaEdit />
