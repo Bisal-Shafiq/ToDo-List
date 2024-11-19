@@ -1,27 +1,70 @@
+/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* General Page Styling */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.wrapper {
+  @apply bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-lg;
+}
+
+h1 {
+  @apply text-center text-2xl font-bold mb-6 text-white;
+}
+
+/* Form Styling */
+.input-container {
+  @apply flex gap-4 mb-6;
+}
+
+input {
+  @apply flex-grow px-4 py-2 rounded-md shadow-md border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-600;
+}
+
+button.add {
+  @apply bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-md shadow-md transition-all;
+}
+
+/* Task List Styling */
+.task-list {
+  @apply list-none p-0;
+}
+
+.task-item {
+  @apply flex justify-between items-center bg-gray-700 text-white p-4 rounded-md shadow-md mb-4;
+}
+
+.task-item span {
+  @apply flex-grow mx-4 text-white;
+}
+
+.task-item.completed span {
+  @apply line-through text-gray-400;
+}
+
+/* Icon Buttons */
+.icon-buttons {
+  @apply flex gap-2;
+}
+
+button.edit {
+  @apply bg-yellow-500 hover:bg-yellow-400 px-3 py-2 rounded-full text-white;
+}
+
+button.delete {
+  @apply bg-red-600 hover:bg-red-500 px-3 py-2 rounded-full text-white;
+}
+
+.no-tasks {
+  @apply text-center text-gray-400 italic mt-6;
 }
